@@ -7,7 +7,21 @@ class Users extends CI_Controller {
    }
 
    public function index() {
-       echo "Welcome bro";
+       
+       $user_list= $this->session->userdata('user_list');
+       if($user_list){
+            
+          $user = reset($user_list);
+
+         redirect(base_url('anasayfa/' . md5($user->email)));
+
+       } else {
+
+        redirect(base_url('giris'));
+       }
+    
+
+
    }
 
 
@@ -37,15 +51,40 @@ class Users extends CI_Controller {
                     )
                 );
               
-                print_r($user);
+               if($user){
+                     if ($this->session->userdata('user_list')){
+                         $user_list=$this->session->userdata('user_list');
+                     } else {
+                         $user_list=[];
+                     }
+                   
+                   $user_list[md5($user->email)] = $user;
+                   $this->session->set_userdata("user_list", $user_list);
+                   
+                   redirect(base_url('anasayfa/' . md5($user->email) ));
+               } else {
+                   $this->load->view('login_v');
+               }
 
         }
 
 
    }
-   public function homepage() {
-    $this->load->view('home_page_v');
-}
+
+   public function logout($id){
+       
+    $user_list= $this->session->userdata('user_list');
+    unset($user_list[$id]);
+    $this->session->set_userdata("user_list", $user_list);
+    redirect(base_url('giris'));
+
+
+
+   }
+
+   public function sil(){
+       $this->session->unset_userdata('user_list');
+   }
 }
 
 

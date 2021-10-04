@@ -22,7 +22,7 @@
 
 
 <div class="col-md-6 offset-md-3 bg-success p-2 text-dark bg-opacity-10 p-5">
-<form action="<?php echo base_url('giris');?>" method="post">
+<form action="<?php echo base_url('giris-yap');?>" method="post">
   <div class="row mb-3">
     <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
     <div class="col-sm-10">

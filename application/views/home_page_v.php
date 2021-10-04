@@ -12,9 +12,25 @@
   </head>
   <body>
   <nav class="navbar navbar-expand-lg navbar-inverse bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <a class="navbar-nav nav-link" href="#">Çıkış</a>
+  <div class="container-fluid mx-5">
+    <a class="navbar-brand mx-5 "  style="width: 200px;" href="#"><?php echo $user->full_name; ?></a>
+    <div class="nav-item dropdown mx-5">
+
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Işlemler
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="<?php echo base_url('cikis/' . md5($user->email)); ?>">Çıkış</a></li>
+            <li><a class="dropdown-item" target="_blank" href="<?php echo base_url('giris') ;?>">Farklı hesap ile oturum aç</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <?php foreach ($user_list as $item):?>
+              <?php  if (md5($item->email) != md5($user->email)): ?>
+              <li><a class="dropdown-item" href="<?php echo base_url('anasayfa/' . md5($item->email)) ?>"><?php echo $item->full_name; ?></a></li>
+              <?php endif; ?>
+              <?php endforeach; ?>
+          </ul>
+</div>
+    
    
   
   </div>
@@ -40,10 +56,11 @@
   </thead>
   <tbody>
     <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-  
-    </tr>
+      <?php foreach ($products as $product): ?>
+      <th scope="row">#<?php echo $product->id; ?></th>
+      <td><?php echo $product->product_name; ?></td>
+      </tr>
+    <?php endforeach; ?>
   </tbody>
 </table>
 

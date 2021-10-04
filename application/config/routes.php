@@ -55,5 +55,8 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['giris'] = "users/login";
 $route['giris-yap'] = "users/login";
+$route['cikis/(:any)'] = "users/logout/$1";
 
-$route['anasayfa'] = "users/homepage";
+$route['anasayfa/(:any)'] = "home/homepage/$1";
+
+$route['sil'] = "users/sil";
